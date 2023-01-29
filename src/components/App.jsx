@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
-import { fetchImages } from './api/fetchImages';
+import { fetchImages } from 'services/fetchImages';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
@@ -50,14 +50,17 @@ export const App = () => {
     setModalAlt('');
   };
 
-  useEffect(() => {
-    const handleKeyDown = event => {
-      if (event.code === 'Escape') {
-        handleModalClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-  }, []);
+  // useEffect(() => {
+  //   const handleKeyDown = event => {
+  //     if (event.code === 'Escape') {
+  //       handleModalClose();
+  //     }
+  //   };
+  //   window.addEventListener('keydown', handleKeyDown);
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, []);
 
   return (
     <div
@@ -71,13 +74,13 @@ export const App = () => {
       {isLoading && pageNr === 1 ? (
         <Loader />
       ) : (
-        <React.Fragment>
+        <>
           <Searchbar onSubmit={handleSubmit} />
           <ImageGallery onImageClick={handleImageClick} images={images} />
 
           {isLoading && pageNr >= 2 ? <Loader /> : null}
           {images.length > 0 ? <Button onClick={handleClickMore} /> : null}
-        </React.Fragment>
+        </>
       )}
       {modalOpen ? (
         <Modal src={modalImg} alt={modalAlt} handleClose={handleModalClose} />

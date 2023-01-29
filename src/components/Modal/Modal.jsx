@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
-export function Modal({ handleClose, src, alt }) {
+export const Modal = ({ handleClose, src, alt }) => {
   const handleKeyDown = event => {
     if (event.code === 'Escape') {
       handleClose();
@@ -31,7 +31,7 @@ export function Modal({ handleClose, src, alt }) {
       </div>
     </div>
   );
-}
+};
 Modal.propTypes = {
   src: PropTypes.string.isRequired,
   handleClose: PropTypes.func.isRequired,
